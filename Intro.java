@@ -183,6 +183,45 @@ public class Intro {
 		}
 		return sameStructure(root1.left,root2.left)&& sameStructure(root1.right,root2.right);
 	}
+	
+	//isomorphic
+	boolean isIsomorphic(Node root1,Node root2) {
+		if(root1==null&&root2==null) {
+			return true;
+		}
+		if(root1==null|| root2==null) {
+			return false;
+		}
+		return (isIsomorphic(root1.left,root2.left)&&isIsomorphic(root1.right,root2.right))||(isIsomorphic(root1.left,root2.right)&&isIsomorphic(root1.right,root2.left));
+	}
+	
+	//level of tree by queue
+	int heightitr(Node root) {
+		if(root==null) {
+			return -1;
+		}
+		Queue<Node> q=new java.util.LinkedList<>();
+		q.add(root);
+		int level =0;
+		while(true) {
+			int size=q.size();
+			if(size==0) {
+				break;
+			}
+			for(int i=0;i<size;i++) {
+				Node temp = q.remove();
+				//System.out.print(temp.data +" ");
+				if(temp.left!=null) {
+					q.add(temp.left);
+				}
+				if(temp.right!=null) {
+					q.add(temp.right);
+				}
+			}
+			level++;
+		}
+		return level-1;
+	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
@@ -258,6 +297,7 @@ public class Intro {
 		ob2.root.left.right=new Node(10);
 		ob2.root.left.left=new Node(12);
 		ob2.root.left.left.left=new Node(6);
+		//ob2.root.left.left.right=new Node(6);
 
 		System.out.println("tree is mirror or not");
 		System.out.println(ob.isMirror(ob.root,ob2.root));
@@ -268,6 +308,13 @@ public class Intro {
 		
 		System.out.println("same structure");
 		System.out.println(ob.sameStructure(ob.root,ob.root));
+		
+		System.out.println("isomorphic");
+		System.out.println(ob.isIsomorphic(ob.root,ob2.root));
+		
+		System.out.println("print level of binary tree");
+		System.out.println(ob.heightitr(ob.root));
+		
 	}
 
 }
