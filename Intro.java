@@ -13,14 +13,36 @@ public class Intro {
 	Intro(){
 		root=null;
 	}
+	
 	Intro(int data){
 		this.root=new Node(data);
 	}
+	
+	//sum of binary tree
 	int TreeSum(Node root) {
 		if(root==null) {
 			return 0;
 		}
 		return root.data+TreeSum(root.left)+TreeSum(root.right);
+	}
+	
+	//count number of nodes
+	int countNodes(Node root) {
+		if(root==null) {
+			return 0;
+		}
+		return 1+countNodes(root.left)+countNodes(root.right);
+	}
+	
+	//count number of leaves nodes
+	int leafNodes(Node root) {
+		if(root==null) {
+			return 0;
+		}
+		if(root.left==null&&root.right==null) {
+			return 1;
+		}
+		return leafNodes(root.left)+leafNodes(root.right);
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -31,6 +53,8 @@ public class Intro {
 		ob.root.left.right=new Node(8);
 		ob.root.right.left=new Node(10);
 		System.out.println(ob.TreeSum(ob.root));
+		System.out.println(ob.countNodes(ob.root));
+		System.out.println(ob.leafNodes(ob.root));
 	}
 
 }
