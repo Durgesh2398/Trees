@@ -159,6 +159,30 @@ public class Intro {
 		}
 		return root1.data==root2.data&&isMirror(root1.left,root2.right)&&isMirror(root1.right,root2.left);
 	}
+	
+	//making of mirror tree
+	Node toMirror(Node root) {
+		if(root==null) {
+			return null;
+		}
+		Node temp=root.left;
+		root.left=root.right;
+		root.right=temp;
+		toMirror(root.left);
+		toMirror(root.right);
+		return root;
+	}
+	
+	//same structure of tree
+	boolean sameStructure(Node root1,Node root2) {
+		if(root1==null&&root2==null) {
+			return true;
+		}
+		if(root1==null|| root2==null) {
+			return false;
+		}
+		return sameStructure(root1.left,root2.left)&& sameStructure(root1.right,root2.right);
+	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
@@ -237,6 +261,13 @@ public class Intro {
 
 		System.out.println("tree is mirror or not");
 		System.out.println(ob.isMirror(ob.root,ob2.root));
+		
+		System.out.println("tree to mirror tree");
+		Node temp=ob.toMirror(ob.root);
+		System.out.println(temp.data+" "+temp.left.data+" "+temp.right.data);
+		
+		System.out.println("same structure");
+		System.out.println(ob.sameStructure(ob.root,ob.root));
 	}
 
 }
