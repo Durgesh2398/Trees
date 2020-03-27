@@ -1,4 +1,7 @@
 package code;
+
+import java.util.Queue;
+
 class Node{
 	int data;
 	Node left,right;
@@ -45,7 +48,7 @@ public class Intro {
 		return leafNodes(root.left)+leafNodes(root.right);
 	}
 	
-	//to calcuate sum of leaf nodes
+	//to calculate sum of leaf nodes
 	int sumLeafNodes(Node root) {
 		if(root==null) {
 			return 0;
@@ -56,7 +59,7 @@ public class Intro {
 		return sumLeafNodes(root.left)+sumLeafNodes(root.right);
 	}
 	
-	//to get hight of tree
+	//to get height of tree
 	int height(Node root) {
 		if(root==null) {
 			return -1;
@@ -64,7 +67,7 @@ public class Intro {
 		return 1+Math.max(height(root.left),height(root.right)); 
 	}
 	
-	//
+	//print data at a given level
 	void printAtLevel(Node root,int level) {
 		if(root==null) {
 			return ;
@@ -76,6 +79,64 @@ public class Intro {
 		printAtLevel(root.left,level-1);
 		printAtLevel(root.right,level-1);
 	}
+	
+	//level wise printing
+	void levelWise(Node root) {
+		if(root==null) {
+			return;
+		}
+		int h=height(root);
+		for(int i=1;i<=h+1;i++) {
+			printAtLevel(root,i);
+			System.out.println();
+		}
+	}
+	
+	//level order traversal
+	void levelOrderTraversal(Node root) {
+		if(root==null) {
+			return ;
+		}
+		Queue<Node> q = new java.util.LinkedList<>();
+		q.add(root);
+		while(!q.isEmpty()) {
+			Node temp = q.remove();
+			System.out.print(temp.data+" ");
+			if(temp.left!=null) {
+				q.add(temp.left);
+			}
+			if(temp.right!=null) {
+				q.add(temp.right);
+			}
+		}
+		System.out.println();
+	}
+	
+	//
+	void level(Node root) {
+		if(root==null) {
+			return;
+		}
+		Queue<Node> q = new java.util.LinkedList<>();
+		q.add(root);
+		while(true) {
+			int size=q.size();
+			if(size==0) {
+				break;
+			}
+			for(int i=0;i<size;i++) {
+				Node temp= q.remove();
+				System.out.print(temp.data+" ");
+				if(temp.left!=null) {
+					q.add(temp.left);
+				}
+				if(temp.right!=null) {
+					q.add(temp.right);
+				}
+			}
+			System.out.println();
+		}
+	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Intro ob= new Intro(2);//binary tree with root node 2
@@ -84,23 +145,48 @@ public class Intro {
 		ob.root.left.left=new Node(7);
 		ob.root.left.right=new Node(8);
 		ob.root.right.left=new Node(10);
+		ob.root.right.right=new Node(12);
+		ob.root.right.right.right=new Node(6);
+		
+		System.out.println("sum of nodes in tree");
 		System.out.println(ob.TreeSum(ob.root));
+		
+		System.out.println("count number of nodes");
 		System.out.println(ob.countNodes(ob.root));
+		
+		System.out.println("count leaf node");
 		System.out.println(ob.leafNodes(ob.root));
+		
+		System.out.println("sum of leaf nodes");
 		System.out.println(ob.sumLeafNodes(ob.root));
+		
+		System.out.println("get height of tree counting by edges");
 		System.out.println(ob.height(ob.root));
+		
 		System.out.print("Nodes at lvel 1  :");
 		ob.printAtLevel(ob.root, 1);
 		System.out.println("");
+		
 		System.out.print("Nodes at lvel 2  :");
 		ob.printAtLevel(ob.root, 2);
 		System.out.println("");
+		
 		System.out.print("Nodes at lvel 3  :");
 		ob.printAtLevel(ob.root, 3);
 		System.out.println("");
+		
 		System.out.print("Nodes at lvel 4  :");
 		ob.printAtLevel(ob.root, 4);
 		System.out.println("");
+		
+		System.out.println("level order traversal by getting height");
+		ob.levelWise(ob.root);
+		
+		System.out.println("level order traversal in a line by queue");
+		ob.levelOrderTraversal(ob.root);
+		
+		System.out.println("level order traversal by queue");
+		ob.level(ob.root);
 	}
 
 }
