@@ -113,7 +113,7 @@ public class Intro {
 	}
 	
 	//
-	void level(Node root) {
+	void levelOrderTraversal2(Node root) {
 		if(root==null) {
 			return;
 		}
@@ -137,8 +137,31 @@ public class Intro {
 			System.out.println();
 		}
 	}
+	
+	//tree is identical or not
+	boolean isIdentical(Node root1,Node root2) {
+		if(root1==null && root2==null) {
+			return true;
+		}
+		if(root1==null || root2==null) {
+			return false;
+		}
+		return root1.data==root2.data&&isIdentical(root1.left,root2.left)&&isIdentical(root1.right,root2.right);
+	}
+	
+	//tree is mirror of another tree
+	boolean isMirror(Node root1,Node root2) {
+		if(root1==null && root2==null) {
+			return true;
+		}
+		if(root1==null || root2==null) {
+			return false;
+		}
+		return root1.data==root2.data&&isMirror(root1.left,root2.right)&&isMirror(root1.right,root2.left);
+	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		
 		Intro ob= new Intro(2);//binary tree with root node 2
 		ob.root.left=new Node(3);
 		ob.root.right=new Node(5);
@@ -186,7 +209,34 @@ public class Intro {
 		ob.levelOrderTraversal(ob.root);
 		
 		System.out.println("level order traversal by queue");
-		ob.level(ob.root);
+		ob.levelOrderTraversal2(ob.root);
+		
+		Intro ob1= new Intro(2);//binary tree with root node 2
+		ob1.root.left=new Node(3);
+		ob1.root.right=new Node(5);
+		ob1.root.left.left=new Node(7);
+		ob1.root.left.right=new Node(8);
+		ob1.root.right.left=new Node(10);
+		ob1.root.right.right=new Node(12);
+		ob1.root.right.right.right=new Node(6);
+		
+		System.out.println("tree is identical or not");
+		System.out.println(ob.isIdentical(ob.root,ob1.root));
+		
+		System.out.println("tree is mirror or not");
+		System.out.println(ob.isMirror(ob.root,ob1.root));
+		
+		Intro ob2= new Intro(2);//binary tree with root node 2
+		ob2.root.right=new Node(3);
+		ob2.root.left=new Node(5);
+		ob2.root.right.right=new Node(7);
+		ob2.root.right.left=new Node(8);
+		ob2.root.left.right=new Node(10);
+		ob2.root.left.left=new Node(12);
+		ob2.root.left.left.left=new Node(6);
+
+		System.out.println("tree is mirror or not");
+		System.out.println(ob.isMirror(ob.root,ob2.root));
 	}
 
 }
