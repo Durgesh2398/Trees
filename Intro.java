@@ -1,6 +1,7 @@
 package code;
 
 import java.util.Queue;
+import java.util.TreeMap;
 
 class Node{
 	int data;
@@ -222,6 +223,58 @@ public class Intro {
 		}
 		return level-1;
 	}
+	
+	//leftview of tree
+	int levelprint=1;
+	void leftview(Node root,int level) {
+		if(root==null) {
+			return ;
+		}
+		if(level==levelprint) {
+			System.out.print(root.data+" ");
+			levelprint++;
+		}
+		leftview(root.left,level+1);
+		leftview(root.right,level+1);
+	}
+	
+	//rightview
+	int levelprintt=1;
+	void rightview(Node root,int level) {
+		if(root==null) {
+			return ;
+		}
+		if(level==levelprintt) {
+			System.out.print(root.data+" ");
+			levelprintt++;
+		}
+		rightview(root.right,level+1);
+		rightview(root.left,level+1);
+	}
+	
+	//top view of tree
+	void topviewutil(Node root,int level,TreeMap<Integer,Integer>map) {
+		//utility function to traverse preorder and map fill
+		if(root==null) {
+			return ;
+		}
+		if(!map.containsKey(level)) {
+			map.put(level,root.data);
+		}
+		topviewutil(root.left,level-1,map);
+		topviewutil(root.right,level+1,map);
+	}
+	void topview(Node root) {
+		if (root==null) {
+			return ;
+		}
+		TreeMap<Integer,Integer> map= new TreeMap<>();
+		topviewutil(root,0,map);
+		for(Integer x:map.keySet()) {
+			System.out.print(map.get(x)+" ");
+		}
+		System.out.println("");
+	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
@@ -315,6 +368,16 @@ public class Intro {
 		System.out.println("print level of binary tree");
 		System.out.println(ob.heightitr(ob.root));
 		
+		System.out.println("leftview of tree");
+		ob.leftview(ob.root, 1);
+		System.out.println("");
+		
+		System.out.println("rightview of tree");
+		ob.rightview(ob.root,1);
+		System.out.println("");
+		
+		System.out.println("top view of tree");
+		ob.topview(ob.root);
 	}
 
 }
