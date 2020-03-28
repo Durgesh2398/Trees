@@ -296,6 +296,27 @@ public class Intro {
 		}
 		System.out.println("");
 	}
+	
+	//lowest common ansestor
+	Node LCAfind(Node root,int a1,int a2) {
+		if(root==null) {
+			return root;
+		}
+		if(root.data==a1||root.data==a2) {
+			return root;
+		}
+		Node leftlca=LCAfind(root.left,a1,a2);
+		Node rightlca=LCAfind(root.right,a1,a2);
+		if(leftlca!=null && rightlca!=null) {
+			return root;
+		}
+		if(leftlca!=null) {
+			return leftlca;
+		}
+		else {
+			return rightlca;
+		}
+	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
@@ -402,6 +423,9 @@ public class Intro {
 		
 		System.out.println("bottom view of tree");
 		ob.bottomview(ob.root);
+		
+		System.out.println("lowest common ansestor");
+		System.out.println(ob.LCAfind(ob.root,7, 12).data);
 	}
 
 }
