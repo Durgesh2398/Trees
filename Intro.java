@@ -275,6 +275,27 @@ public class Intro {
 		}
 		System.out.println("");
 	}
+	
+	//bottom view of tree
+	void bottomviewutil(Node root,int level,TreeMap<Integer,Integer>map) {
+		if(root==null) {
+			return ;
+		}
+		map.put(level,root.data);
+		bottomviewutil(root.left,level-1,map);
+		bottomviewutil(root.right,level+1,map);
+	}
+	void bottomview(Node root) {
+		if(root==null) {
+			return ;
+		}
+		TreeMap<Integer,Integer>map = new TreeMap<>();
+		bottomviewutil(root,0,map);
+		for(Integer x:map.keySet()) {
+			System.out.print(map.get(x)+" ");
+		}
+		System.out.println("");
+	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
@@ -365,7 +386,7 @@ public class Intro {
 		System.out.println("isomorphic");
 		System.out.println(ob.isIsomorphic(ob.root,ob2.root));
 		
-		System.out.println("print level of binary tree");
+		System.out.println("print height of binary tree");
 		System.out.println(ob.heightitr(ob.root));
 		
 		System.out.println("leftview of tree");
@@ -378,6 +399,9 @@ public class Intro {
 		
 		System.out.println("top view of tree");
 		ob.topview(ob.root);
+		
+		System.out.println("bottom view of tree");
+		ob.bottomview(ob.root);
 	}
 
 }
